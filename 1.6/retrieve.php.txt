@@ -1,0 +1,14 @@
+<?php
+
+   // do some validation here to ensure id is safe
+   mysql_connect("localhost", "root","") or die ("could not connect to the server");
+   mysql_select_db("project") or die ("that database could not be found");
+   $id = addslashes($_REQUEST['id']);
+
+   $image = mysql_query("SELECT * FROM user_info WHERE id='$id'");
+   $image = mysql_fetch_assoc($image);
+   $image = $image['image'];
+
+   header("Content-type: image/jpeg");
+   echo $image;
+?>

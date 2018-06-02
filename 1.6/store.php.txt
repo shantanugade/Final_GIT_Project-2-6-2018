@@ -1,0 +1,44 @@
+<html>
+<head>
+<title> Upload an image </title>
+</head>
+<body>
+<form action="index.php" method="POST" enctype="multipart/from/data">
+  File:
+  <input type="file" name="image" > <input type="submit" value="upload">
+</form>
+</body>
+</html>
+<?php
+
+  mysql_connect("localhost", "root","","project") 
+  
+  $file = $_FILES['image']['tmp_name'];
+
+  if (!isset($file))
+     echo "please select file";
+  else
+  {
+
+     $image= addslashes(file_get_contents($_FILES['image']['tmp_name']));
+     $image_name = addslashes($_FILES['image']['name']);
+     $image_size = getimagesize($_FILES['image']['tmp_name']);
+
+     if($image_size == FALSE)
+        echo "that not image ";
+
+     else
+     {
+
+         if (!$insert= mysql_query("INSERT INTO aaa (img) VALUES ('$image')"))
+             echo "Problem";
+
+         else
+         {
+
+             echo "image: <p /> your image <p /><img src='view.php?id="id"'>";
+         }
+     }
+
+
+ }
